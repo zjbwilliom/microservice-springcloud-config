@@ -1,0 +1,67 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8001
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: com.zjb.entity
+  mapper-location: classpath:mybatis/mapper/**/*.xml
+spring:
+  profiles: dev
+  application:
+    name: microservice-product-config
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springcloud_db01?serverTimezone=GMT%2B8
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-mills: 150
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://eureka6001.com/eureka6001
+    instance:
+      instanceId: ${spring.application.name}:${server.port}
+      prefer-ip-address: true
+
+server:
+  port: 8001
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: com.zjb.entity
+  mapper-location: classpath:mybatis/mapper/**/*.xml
+spring:
+  profiles: prod
+  application:
+    name: microservice-product-config
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springcloud_db02?serverTimezone=GMT%2B8
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-mills: 150
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://eureka6001.com:6001/eureka
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
